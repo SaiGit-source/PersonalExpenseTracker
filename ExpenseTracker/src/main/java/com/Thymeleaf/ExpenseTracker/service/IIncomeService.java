@@ -11,7 +11,7 @@ public interface IIncomeService {
 	public List<List<Object>> getIncomeCh(List<Income> listInc); // convert data for Google chart format
 	public List<List<Object>> getIncomeLine(List<Income> listInc); // convert data for Google chart format
 	public void saveIncome(Income income); // post
-	public Income fetchImbyId(Long iId); // update
+	public Income fetchInbyId(Long iId); // update
 	public void deleteIncome(Long iId); // delete
 	
 }

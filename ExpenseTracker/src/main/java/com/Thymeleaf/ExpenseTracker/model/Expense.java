@@ -65,7 +65,6 @@ public class Expense {
 	}
 	public Expense() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {

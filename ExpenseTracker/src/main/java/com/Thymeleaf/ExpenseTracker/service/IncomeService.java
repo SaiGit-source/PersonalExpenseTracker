@@ -39,10 +39,10 @@ public class IncomeService implements IIncomeService {
 	}
 
 	@Override
-	public Income fetchImbyId(Long iId) {
-		Optional optional = iRepo.findById(iId);
+	public Income fetchInbyId(Long iId) {
+		Optional<Income> optional = iRepo.findById(iId);
 		//if (optional.isPresent()) {
-		return (Income) optional.get();
+		return optional.get();
 		//}
 	}
 

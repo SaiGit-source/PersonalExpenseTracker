@@ -41,20 +41,12 @@
             chart.draw(data, options);
         }
         /*]]>*/
-        
-        function convert(dt, row) {
-	        var dateArray = dt.getValue(row, 0).split('-');
-	        var year = dateArray[0];
-	        var month = dateArray[1] - 1; // subtract 1 to convert to javascript's 0-indexed months
-	        var day = dateArray[2]; //The day is the third split
-	        return new Date(year, month, day);
-    	}
-        
+                
         function drawLineChart(){
 
             // Create the data table.
             var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Date');
+            data.addColumn('string', 'Date'); /* we are converting date into string and printing */
             data.addColumn('number', 'Amount');
             
             data.addRows([
