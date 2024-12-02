@@ -69,4 +69,9 @@ public class IncomeService implements IIncomeService {
 		return listIncomeLine;
 	}
 
+	@Override
+	public Double totalIncome() {
+		return iRepo.totalIncome();
+	}
+
 }

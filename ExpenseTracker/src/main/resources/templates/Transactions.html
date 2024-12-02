@@ -76,14 +76,14 @@
     	           	<!-- Add "update" button/link -->
 					<form action="#" th:action="@{/updateExpense}" method="GET">
 					<input type="hidden" name="expIDKey" th:value="${expRec.eId}"> 
-					<button type="submit">Update Expense</button>
+					<button type="submit">UpdateExpense</button>
 					</form>
 					</td>
     	            
     	            <td>
 					<!-- Add "delete" button/link -->
 					<form action="#" th:action="@{/deleteExpense}" method="GET">
-					<input type="hidden" name="expIDKey" th:value="${expRec.iId}">
+					<input type="hidden" name="expIDKey" th:value="${expRec.eId}">
 					<button type="submit" onclick="if (!(confirm('Are you sure you want to delete this customer info permanently?'))) return false"> Delete Record
 					</button>
 					</form>

@@ -45,6 +45,11 @@ public class TrackerController {
 		List<List<Object>> listExpenseLine = eservice.getExpenseLine(listExpense);
 		//System.out.println(listIncomeLine);
 		model.addAttribute("ExpenseLineKey", listExpenseLine);
+		
+		//Total income and expense
+		model.addAttribute("TotIncKey", iservice.totalIncome());
+		model.addAttribute("TotExpKey", eservice.totalExpense());
+		
 		return "Tracker";
 	}
 	
@@ -106,7 +111,23 @@ public class TrackerController {
 		return "redirect:/Homepage";
 		//return "IncomeForm";
 	}
+	
+	@GetMapping("/updateExpense")
+	public String updateEx(@RequestParam("expIDKey")Long expID, Model model) {
+		//expIDKey is coming from Transactions
+		Expense expRecord = eservice.fetchExbyId(expID);
+		// fetch Expense record and populate update form
+		// send expRecord to updateExpForm
+		model.addAttribute("expRecordKey", expRecord);
+		// now the record is available for two-way binding at updateExpForm
+		return "updateExpForm";
+	}
 
+	@GetMapping("/deleteExpense")
+	public String deleteEx(@RequestParam("expIDKey")Long expID) {
+		eservice.deleteExpense(expID);
+		return "redirect:/TransactionsLst";
+	}
 
 
 }

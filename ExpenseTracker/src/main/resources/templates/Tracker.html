@@ -124,8 +124,12 @@
         </script>
 </head>
 <body>
+<div align="center">
 <h1>Tracker Dashboard</h1>
   <!--Table and divs that hold the pie charts-->
+   	<h3 th:text="'Total Income: '+${TotIncKey}"></h3>
+    <h3 th:text="'Total Expense: '+${TotExpKey}"></h3>
+  
     <table class="columns">
       <tr>
         <td><div id="piechart" style="border: 1px solid #ccc"></div></td>
@@ -137,7 +141,9 @@
       </tr>
       
     </table>
+    </div>
   <p><A th:href="@{/EnterIncome}">Click to enter Income</A></p>
-  <p><A th:href="@{/EnterExpense}">Click to enter Expense</A></p>  
+  <p><A th:href="@{/EnterExpense}">Click to enter Expense</A></p>
+  <p><A th:href="@{/TransactionsLst}">Click to view/update/delete Transactions</A></p>  
   </body>
 </html>

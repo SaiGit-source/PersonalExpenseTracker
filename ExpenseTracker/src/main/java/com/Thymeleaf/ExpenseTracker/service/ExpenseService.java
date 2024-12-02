@@ -68,4 +68,9 @@ public class ExpenseService implements IExpenseService {
 		Expense exp = optional.get();
 		eRepo.deleteById(eId);
 	}
+
+	@Override
+	public Double totalExpense() {
+		return eRepo.totalExpense();
+	}
 }
