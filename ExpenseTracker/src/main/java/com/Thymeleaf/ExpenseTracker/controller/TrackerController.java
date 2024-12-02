@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Thymeleaf.ExpenseTracker.model.Expense;
 import com.Thymeleaf.ExpenseTracker.model.Income;
 import com.Thymeleaf.ExpenseTracker.service.IExpenseService;
 import com.Thymeleaf.ExpenseTracker.service.IIncomeService;
@@ -24,7 +25,8 @@ public class TrackerController {
 	
 	@Autowired
 	private IIncomeService iservice;
-	//@Autowired
+	
+	@Autowired
 	private IExpenseService eservice;
 	
 	@GetMapping("/Homepage")
@@ -35,6 +37,14 @@ public class TrackerController {
 		List<List<Object>> listIncomeLine = iservice.getIncomeLine(listIncome);
 		//System.out.println(listIncomeLine);
 		model.addAttribute("IncomeLineKey", listIncomeLine);
+		
+		// Expense charts
+		List<Expense> listExpense = eservice.getExpenseList();
+		List<List<Object>> listExpensePie = eservice.getExpensePie(listExpense);
+		model.addAttribute("ExpensePieKey", listExpensePie);
+		List<List<Object>> listExpenseLine = eservice.getExpenseLine(listExpense);
+		//System.out.println(listIncomeLine);
+		model.addAttribute("ExpenseLineKey", listExpenseLine);
 		return "Tracker";
 	}
 	
@@ -44,6 +54,12 @@ public class TrackerController {
 		List<Income> incomes = iservice.getIncomeList();
 		incomes.forEach(i->System.out.println(i));
 		model.addAttribute("IncomeKey", incomes);
+		
+		// Expense
+		List<Expense> expenses = eservice.getExpenseList();
+		expenses.forEach(e->System.out.println(e));
+		model.addAttribute("ExpenseKey", expenses);
+
 		return "Transactions";
 	}
 	
@@ -77,5 +93,20 @@ public class TrackerController {
 		return "redirect:/Homepage";
 		//return "IncomeForm";
 	}
+	
+	@GetMapping("/EnterExpense")
+	public String EnterExpenseForm(@ModelAttribute("ExpKey")Expense expense, Model model) {
+		model.addAttribute("ExpKey", new Expense());
+		return "ExpenseForm";
+	}
+	
+	@PostMapping("/saveExpense")
+	public String saveExpenseRec(@ModelAttribute("ExpKey")Expense expense) {
+		eservice.saveExpense(expense);
+		return "redirect:/Homepage";
+		//return "IncomeForm";
+	}
+
+
 
 }

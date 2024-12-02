@@ -41,8 +41,49 @@
     	            
     	            <td>
 					<!-- Add "delete" button/link -->
-					<form action="#" th:action="@{/deleteRecord}" method="GET">
+					<form action="#" th:action="@{/deleteExpense}" method="GET">
 					<input type="hidden" name="incIDKey" th:value="${incRec.iId}">
+					<button type="submit" onclick="if (!(confirm('Are you sure you want to delete this customer info permanently?'))) return false"> Delete Record
+					</button>
+					</form>
+					</td>
+    	 </tr>
+    	 </tbody> 
+    </table>
+    
+    <!-- Expenses -->
+    <table border="1">
+		<thead>
+	   	<tr>
+    	<th>Expense Title</th>
+    	<th>Expense Amount</th>
+    	<th>Expense Desc</th>
+    	<th>Expense Category</th>
+    	<th>Expense Date</th>
+    	<th>Expense Update</th>
+    	<th>Expense Delete</th>
+    	</tr>
+    	</thead>
+		<tbody>
+		<tr th:each="expRec:${ExpenseKey}"> <!--  loop in thymeleaf -->
+		
+	    	       <td th:text="${expRec.eTitle}"></td>
+    	           <td th:text="${expRec.eAmount}"></td>
+    	           <td th:text="${expRec.eDesc}"></td>  
+    	           <td th:text="${expRec.eCategory}"></td>
+    	           <td th:text="${expRec.eDate}"></td>
+    	           <td>
+    	           	<!-- Add "update" button/link -->
+					<form action="#" th:action="@{/updateExpense}" method="GET">
+					<input type="hidden" name="expIDKey" th:value="${expRec.eId}"> 
+					<button type="submit">Update Expense</button>
+					</form>
+					</td>
+    	            
+    	            <td>
+					<!-- Add "delete" button/link -->
+					<form action="#" th:action="@{/deleteExpense}" method="GET">
+					<input type="hidden" name="expIDKey" th:value="${expRec.iId}">
 					<button type="submit" onclick="if (!(confirm('Are you sure you want to delete this customer info permanently?'))) return false"> Delete Record
 					</button>
 					</form>
