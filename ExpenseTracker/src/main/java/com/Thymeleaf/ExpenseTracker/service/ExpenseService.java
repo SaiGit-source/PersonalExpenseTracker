@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Thymeleaf.ExpenseTracker.exception.RecordNotFoundException;
 import com.Thymeleaf.ExpenseTracker.model.Expense;
 import com.Thymeleaf.ExpenseTracker.repo.IExpenseRepo;
 
@@ -20,8 +21,15 @@ public class ExpenseService implements IExpenseService {
 	private IExpenseRepo eRepo;
 
 	@Override
-	public List<Expense> getExpenseList() {
-		return eRepo.findAll();
+	public List<Expense> getExpenseList() throws Exception {
+		try {
+			List<Expense> lstE = eRepo.findAll();
+			return lstE;
+		}
+		catch(Exception e) {
+			throw new Exception("Unable to find records");
+		}
+		
 	}
 
 	@Override
@@ -50,23 +58,36 @@ public class ExpenseService implements IExpenseService {
 	}
 
 	@Override
-	public void saveExpense(Expense expense) {
-		eRepo.save(expense);
+	public void saveExpense(Expense expense) throws Exception {
+		try {
+			eRepo.save(expense);
+		}
+		catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 
 	@Override
-	public Expense fetchExbyId(Long eId) {
+	public Expense fetchExbyId(Long eId) throws RecordNotFoundException {
 		Optional<Expense> optional = eRepo.findById(eId);
-		//if (optional.isPresent()) {
-		return optional.get();
-		//}
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+		else {
+			throw new RecordNotFoundException("Record not found");
+		}
 	}
 
 	@Override
-	public void deleteExpense(Long eId) {
+	public void deleteExpense(Long eId) throws RecordNotFoundException {
 		Optional<Expense> optional = eRepo.findById(eId);
-		Expense exp = optional.get();
-		eRepo.deleteById(eId);
+		if (optional.isPresent()) {
+			eRepo.deleteById(eId);
+		}
+		else {
+			throw new RecordNotFoundException("Record not found for deletion");
+		}
+		
 	}
 
 	@Override

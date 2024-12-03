@@ -5,13 +5,16 @@
 <title>Transactions List Page</title>
 </head>
 <title>Transactions</title>
-<link type=text/css rel="stylesheet" href="./style.css">
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
 </head>
 <body bgcolor="green" style="align-content: center">
-<A href="/Homepage">Click to see Tracker Dashboard</A>
+<A th:href="@{/Homepage}" class="btn btn-primary btn-sm mb-3">Click to see Tracker Dashboard</A>
 <div align="center">
 	<h2 style='color:blue; text-align:center'>Transactions List Data</h2>
-	<table border="1">
+	<table border="1"  class = "table table-striped table-responsive-md" style="width:60%">
 		<thead>
 	   	<tr>
     	<th>Income Title</th>
@@ -35,7 +38,7 @@
     	           	<!-- Add "update" button/link -->
 					<form action="#" th:action="@{/updateIncome}" method="GET">
 					<input type="hidden" name="incIDKey" th:value="${incRec.iId}"> 
-					<button type="submit">Update Income</button>
+					<button type="submit" class="btn btn-primary">Update Income</button>
 					</form>
 					</td>
     	            
@@ -43,7 +46,7 @@
 					<!-- Add "delete" button/link -->
 					<form action="#" th:action="@{/deleteExpense}" method="GET">
 					<input type="hidden" name="incIDKey" th:value="${incRec.iId}">
-					<button type="submit" onclick="if (!(confirm('Are you sure you want to delete this customer info permanently?'))) return false"> Delete Record
+					<button type="submit" class="btn btn-danger"  onclick="if (!(confirm('Are you sure you want to delete this customer info permanently?'))) return false"> Delete Record
 					</button>
 					</form>
 					</td>
@@ -52,7 +55,7 @@
     </table>
     
     <!-- Expenses -->
-    <table border="1">
+    <table border="1" class = "table table-striped table-responsive-md" style="width:60%">
 		<thead>
 	   	<tr>
     	<th>Expense Title</th>
@@ -76,7 +79,7 @@
     	           	<!-- Add "update" button/link -->
 					<form action="#" th:action="@{/updateExpense}" method="GET">
 					<input type="hidden" name="expIDKey" th:value="${expRec.eId}"> 
-					<button type="submit">UpdateExpense</button>
+					<button type="submit" class="btn btn-primary">UpdateExpense</button>
 					</form>
 					</td>
     	            
@@ -84,7 +87,7 @@
 					<!-- Add "delete" button/link -->
 					<form action="#" th:action="@{/deleteExpense}" method="GET">
 					<input type="hidden" name="expIDKey" th:value="${expRec.eId}">
-					<button type="submit" onclick="if (!(confirm('Are you sure you want to delete this customer info permanently?'))) return false"> Delete Record
+					<button type="submit" class="btn btn-danger" onclick="if (!(confirm('Are you sure you want to delete this customer info permanently?'))) return false"> Delete Record
 					</button>
 					</form>
 					</td>

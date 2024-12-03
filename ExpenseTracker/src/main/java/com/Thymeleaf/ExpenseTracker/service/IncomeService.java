@@ -9,6 +9,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.Thymeleaf.ExpenseTracker.exception.RecordNotFoundException;
 import com.Thymeleaf.ExpenseTracker.model.Income;
 import com.Thymeleaf.ExpenseTracker.repo.IIncomeRepo;
 
@@ -19,9 +21,15 @@ public class IncomeService implements IIncomeService {
 	private IIncomeRepo iRepo;
 	
 	@Override
-	public List<Income> getIncomeList() {
+	public List<Income> getIncomeList() throws Exception {
 		//System.out.println(iRepo.findAll());
-		return iRepo.findAll();
+		try{
+			List<Income> lstI = iRepo.findAll();
+			return lstI;
+		}
+		catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 
 	@Override
@@ -34,23 +42,37 @@ public class IncomeService implements IIncomeService {
 	}
 
 	@Override
-	public void saveIncome(Income income) {
-		iRepo.save(income);
+	public void saveIncome(Income income) throws Exception {
+		try {
+			iRepo.save(income);
+		}
+		catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 
 	@Override
-	public Income fetchInbyId(Long iId) {
+	public Income fetchInbyId(Long iId) throws RecordNotFoundException {
 		Optional<Income> optional = iRepo.findById(iId);
-		//if (optional.isPresent()) {
-		return optional.get();
-		//}
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+		else {
+			throw new RecordNotFoundException("Record not found during fetching");
+		}
 	}
 
 	@Override
-	public void deleteIncome(Long iId) {
+	public void deleteIncome(Long iId) throws RecordNotFoundException {
 		Optional optional = iRepo.findById(iId);
-		Income inc = (Income) optional.get();
-		iRepo.deleteById(iId);
+		if (optional.isPresent()) {
+			iRepo.deleteById(iId);
+		}
+		else {
+			throw new RecordNotFoundException("Record not found for deletion");
+		}
+		
+		
 	}
 
 	@Override
@@ -70,8 +92,12 @@ public class IncomeService implements IIncomeService {
 	}
 
 	@Override
-	public Double totalIncome() {
-		return iRepo.totalIncome();
+	public Double totalIncome() throws Exception {
+		try {
+			return iRepo.totalIncome();
+		}
+		catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
-
 }

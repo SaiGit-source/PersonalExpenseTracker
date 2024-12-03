@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
 <head>
     <meta charset="UTF-8">
     <title>Tracker Dashboard</title>
@@ -39,7 +43,12 @@
             // Set chart options
             var options = {'title':'Income Pie Chart',
                 'width':400,
-                'height':300};
+                'height':300,
+                is3D: true,
+                     cssClassNames : {
+                         headerRow :'tableChartHeaderRow',
+                         hoverTableRow : 'tableChartHeaderRowHighlightedState'
+                     }};
 
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -63,7 +72,13 @@
             // Set chart options
             var options = {'title':'Income Line Chart',
                 'width':400,
-                'height':300};
+                'height':300,
+                is3D: true,
+                cssClassNames : {
+                    headerRow :'tableChartHeaderRow',
+                    hoverTableRow : 'tableChartHeaderRowHighlightedState'
+                }};
+
             
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.LineChart(document.getElementById('linechart'));
@@ -88,7 +103,13 @@
             // Set chart options
             var options = {'title':'Expense Pie Chart',
                 'width':400,
-                'height':300};
+                'height':300,
+                is3D: true,
+                cssClassNames : {
+                    headerRow :'tableChartHeaderRow',
+                    hoverTableRow : 'tableChartHeaderRowHighlightedState'
+                }};
+
 
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('ex_piechart'));
@@ -112,7 +133,13 @@
             // Set chart options
             var options = {'title':'Expense Line Chart',
                 'width':400,
-                'height':300};
+                'height':300,
+                is3D: true,
+                cssClassNames : {
+                    headerRow :'tableChartHeaderRow',
+                    hoverTableRow : 'tableChartHeaderRowHighlightedState'
+                }};
+
             
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.LineChart(document.getElementById('ex_linechart'));
@@ -142,8 +169,8 @@
       
     </table>
     </div>
-  <p><A th:href="@{/EnterIncome}">Click to enter Income</A></p>
-  <p><A th:href="@{/EnterExpense}">Click to enter Expense</A></p>
-  <p><A th:href="@{/TransactionsLst}">Click to view/update/delete Transactions</A></p>  
+  <p><A th:href="@{/EnterIncome}" class="btn btn-primary btn-sm mb-3">Click to enter Income</A></p>
+  <p><A th:href="@{/EnterExpense}" class="btn btn-primary btn-sm mb-3">Click to enter Expense</A></p>
+  <p><A th:href="@{/TransactionsLst}" class="btn btn-primary btn-sm mb-3">Click to view/update/delete Transactions</A></p>  
   </body>
 </html>

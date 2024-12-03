@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Thymeleaf.ExpenseTracker.exception.RecordNotFoundException;
 import com.Thymeleaf.ExpenseTracker.model.Expense;
 import com.Thymeleaf.ExpenseTracker.model.Income;
 import com.Thymeleaf.ExpenseTracker.service.IExpenseService;
@@ -30,7 +31,7 @@ public class TrackerController {
 	private IExpenseService eservice;
 	
 	@GetMapping("/Homepage")
-	public String TrackerCharts(Model model) {
+	public String TrackerCharts(Model model) throws Exception {
 		List<Income> listIncome = iservice.getIncomeList();
 		List<List<Object>> listIncomeCh = iservice.getIncomeCh(listIncome);
 		model.addAttribute("IncomePieKey", listIncomeCh);
@@ -55,7 +56,7 @@ public class TrackerController {
 	
 	// to display customer list 
 	@GetMapping("/TransactionsLst")
-	public String getAllIncData(Model model) {
+	public String getAllIncData(Model model) throws Exception {
 		List<Income> incomes = iservice.getIncomeList();
 		incomes.forEach(i->System.out.println(i));
 		model.addAttribute("IncomeKey", incomes);
@@ -69,7 +70,7 @@ public class TrackerController {
 	}
 	
 	@GetMapping("/updateIncome")
-	public String updateIx(@RequestParam("incIDKey")Long incID, Model model) {
+	public String updateIx(@RequestParam("incIDKey")Long incID, Model model) throws RecordNotFoundException {
 		//cxidKey is coming from cxlistHomePage
 		Income incRecord = iservice.fetchInbyId(incID);
 		// fetch Income record and populate update form
@@ -81,7 +82,7 @@ public class TrackerController {
 	
 	
 	@GetMapping("/deleteIncome")
-	public String deleteIx(@RequestParam("incIDKey")Long incID) {
+	public String deleteIx(@RequestParam("incIDKey")Long incID) throws RecordNotFoundException {
 		iservice.deleteIncome(incID);
 		return "redirect:/TransactionsLst";
 	}
@@ -93,7 +94,7 @@ public class TrackerController {
 	}
 	
 	@PostMapping("/saveIncome")
-	public String saveIncome(@ModelAttribute("IncKey")Income income) {
+	public String saveIncome(@ModelAttribute("IncKey")Income income) throws Exception {
 		iservice.saveIncome(income);
 		return "redirect:/Homepage";
 		//return "IncomeForm";
@@ -106,14 +107,14 @@ public class TrackerController {
 	}
 	
 	@PostMapping("/saveExpense")
-	public String saveExpenseRec(@ModelAttribute("ExpKey")Expense expense) {
+	public String saveExpenseRec(@ModelAttribute("ExpKey")Expense expense) throws Exception {
 		eservice.saveExpense(expense);
 		return "redirect:/Homepage";
 		//return "IncomeForm";
 	}
 	
 	@GetMapping("/updateExpense")
-	public String updateEx(@RequestParam("expIDKey")Long expID, Model model) {
+	public String updateEx(@RequestParam("expIDKey")Long expID, Model model) throws RecordNotFoundException {
 		//expIDKey is coming from Transactions
 		Expense expRecord = eservice.fetchExbyId(expID);
 		// fetch Expense record and populate update form
@@ -124,7 +125,7 @@ public class TrackerController {
 	}
 
 	@GetMapping("/deleteExpense")
-	public String deleteEx(@RequestParam("expIDKey")Long expID) {
+	public String deleteEx(@RequestParam("expIDKey")Long expID) throws RecordNotFoundException {
 		eservice.deleteExpense(expID);
 		return "redirect:/TransactionsLst";
 	}
